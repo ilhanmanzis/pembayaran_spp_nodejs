@@ -2,8 +2,8 @@ database menggunakan mongodb
 
 sebeleum menggunakan jalankan perintah berikut
 
-npm install
+# npm install
 
 untuk menjalankan gunaka perintah
 
-npm start
+# npm start
