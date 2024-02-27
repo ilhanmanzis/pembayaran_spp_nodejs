@@ -1,0 +1,35 @@
+<%- include('../header.ejs'); %>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Data Siswa</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>NISN</th>
+                        <th>Nama</th>
+                        <th>Angkatan</th>
+                        <th>Jurusan</th>
+                        <th>Kelas</th>
+                        <th>Alamat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let siswa of siswas){ %>
+                    <tr>
+                        <td><%= siswa.nisn %></td>
+                        <td><%= siswa.name %></td>
+                        <td><%= siswa.angkatan.name %></td>
+                        <td><%= siswa.jurusan.name %></td>
+                        <td><%= siswa.kelas.name %></td>
+                        <td><%= siswa.alamat %></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('../footer.ejs'); %>

@@ -1,0 +1,40 @@
+
+
+<form action="/editdatasiswa/<%= siswa._id %>?_method=PUT" method="post">
+    <input type="hidden" name="id" value="<%= siswa._id %>" class="form-control mb-2">
+    <input type="hidden" name="nisn" value="<%= siswa.nisn %>" class="form-control mb-2">
+    <input type="text" name="name" value="<%= siswa.name %>" class="form-control mb-2" required>
+    <select name="angkatan" class="form-control mb-2">
+        <option selected="">-Pilih Angkatan-</option>
+        <% for(let angkatan of angkatans){ 
+            let selected = (siswa.angkatan.name == angkatan.name) ? 'selected':'';
+        %>
+            <option <%= selected %> value="<%= angkatan.name %>"><%= angkatan.name %></option>
+        <% } %>
+    </select>
+    <select name="jurusan" class="form-control mb-2">
+        <option selected="">-Pilih Jurusan-</option>
+        <% for(let jurusan of jurusans){ 
+            let selected = (siswa.jurusan.name == jurusan.name) ? 'selected' : '';   
+        %>
+            <option <%= selected %> value="<%= jurusan.name %>"><%= jurusan.name %></option>
+        <% } %>
+    </select>
+    <select name="kelas" class="form-control mb-2">
+        <option selected="">-Pilih Kelas-</option>
+        <% for(let kelas of kelass){
+            let selected = (siswa.kelas.name == kelas.name) ? 'selected':'';
+            %>
+            <option <%= selected %> value="<%= kelas.name %>"><%= kelas.name %></option>
+        <% } %>
+    </select>
+    <textarea name="alamat" class="form-control mb-2" placeholder="Alamat Siswa"><%= siswa.alamat %></textarea>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name="edit" class="btn btn-primary">Simpan</button>
+    </div>
+</form>
+
+
+

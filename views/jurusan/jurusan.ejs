@@ -1,0 +1,95 @@
+<%- include('../header.ejs'); %>
+
+
+<!-- button triger -->
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</button>
+<!-- button triger -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Data jurusan</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Jurusan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <% let no = 1;
+                for(let jurusans of jurusan){
+                %>
+                <tbody>
+                    <tr>
+                        <td><%= no++ %></td>
+                        <td><%= jurusans.name %></td>
+                        <td>
+                            <form action="/jurusan/<%= jurusans._id %>?_method=Delete" method="post">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Apakah yakin ingin menghapus data?")'>Hapus</button>
+                                <a href="#" class="view_data btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#myModal" data-id="<%= jurusans._id%>">Edit</a>
+                            </form> 
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Data Jurusan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+      </div>
+      <div class="modal-body">
+        <form action="/jurusan/create" method="POST">
+            <input type="text" name="name" placeholder="Nama jurusan" class="form-control mb-2" required>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="Submit" name="simpan" class="btn btn-primary">Simpan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Jurusan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close">x</button>
+            </div>
+            <div class="modal-body" id="datajurusan">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%- include('../footer.ejs'); %>
+
+<script>
+    document.querySelectorAll('.view_data').forEach(function(e){
+        e.addEventListener('click', function(){
+            const idJurusan = this.getAttribute('data-id');
+            axios.get(`/editdatajurusan/${idJurusan}`)
+            .then((response)=>{
+                document.getElementById('datajurusan').innerHTML = response.data;
+                document.getElementById('myModal').modal('show');
+            })
+            .catch((err)=>{
+                console.error('error : ', err);
+            })
+        })
+    })
+</script>

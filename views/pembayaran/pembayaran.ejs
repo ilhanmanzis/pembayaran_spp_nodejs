@@ -1,0 +1,38 @@
+<%- include('../header.ejs'); %>
+<div class="card shadow mb-4">
+    <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td>NISN</td>
+                    <td>:</td>
+                    <td><input type="text" name="nisn" id="nisn_siswa" placeholder="Masukan NISN Siswa" class="form-control"></td>
+                    <td><button type="submit" class="btn btn-primary" onclick="searchnisn()">Search</button></td>
+                </tr>
+            </table>
+    </div>
+</div>
+<div id="data_pembayaran">
+<% if(dataSiswa !==null){ %>
+    <%- include('datasiswa.ejs',{dataPembayaran,dataSiswa}); %>
+<% } %>
+</div>
+</div>
+</div>
+<%- include('../footer.ejs') %>
+<script>
+    const searchnisn = ()=>{
+        const nisn = document.getElementById('nisn_siswa').value;
+
+        axios.get(`/datapembayaran`, {
+            params:{
+                nisn:nisn
+            }
+        })
+            .then((response)=>{
+                document.getElementById('data_pembayaran').innerHTML = response.data;
+            })
+            .catch((err)=>{
+                console.error('error : ', err);
+            })
+    }       
+</script>

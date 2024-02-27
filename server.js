@@ -1,0 +1,67 @@
+import  express  from "express";
+import mongoose from "mongoose";
+import methodOverride from "method-override";
+import routersBackend from "./src/routers/backend.js";
+import routersFrontend from "./src/routers/frontend.js";
+import ErrorHandler from "./src/routers/handler/error/ErrorHandler.js"
+const port = 8080;
+const app = express();
+
+
+// connect database
+mongoose.connect('mongodb://127.0.0.1:27017/latihan').then((result)=>{
+    console.log('connected database');
+}).catch((err)=>{
+    console.log(err);
+});
+
+
+// sett to ejs
+app.set('views', './views');
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended:true}));
+app.use(express.static('public'));
+app.use(methodOverride('_method'));
+
+
+export default function wrapAsync(fn){
+    return function(req,res,next){
+        fn(req,res,next).catch(err=> next(err.message))
+    }
+}
+
+// router express 
+    // frontend
+        routersFrontend(app);
+    // backend
+        routersBackend(app);
+
+
+
+
+app.use((req,res)=>{
+    res.status(404).render('error/404');
+});
+
+
+app.use((err,req,res,next)=>{
+    console.dir(err);
+    if(err.name === 'ValidationError'){
+        err.status = 400;
+        err.message = Object.values(err.errors.map(item => item.message));
+    }
+    if(err.name === 'CastError'){
+        err.status = 404;
+        err.message = 'product tidak ditemukan';
+    }
+    next(err);
+})
+
+app.use((err,req,res,next)=>{
+    const {status=500} = err;
+    res.status(status).render('error/500')
+})
+
+app.listen(port,()=>{
+    console.log(`server run is http://localhost:${port}`);
+})

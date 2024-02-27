@@ -1,0 +1,13 @@
+
+
+<form action="/editdatakelas/<%= kelas._id %>?_method=PUT" method="post">
+    <input type="hidden" name="id" value="<%= kelas._id %>" class="form-control mb-2">
+    <input type="text" name="name" value="<%= kelas.name %>" class="form-control mb-2" required>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name="edit" class="btn btn-primary">Simpan</button>
+    </div>
+</form>
+
+
+

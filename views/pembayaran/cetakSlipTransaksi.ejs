@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slip Pembayaran SPP</title>
+    <style>
+        body{
+            font-family: arial;
+        }
+        /* .print{
+            margin-top: 10px;
+        }
+        @media print {
+            .print{
+                display: none;
+            }
+        } */
+        table{
+                border-collapse:collapse;
+            }
+    </style>
+</head>
+<body onload="window.print();">
+
+    <h3>SMK NEGERI 1 ADIWERNA<b><br>LAPORAN PEMBAYARAN</b></h3>
+    <br/>
+    <hr/>
+
+    <table>
+        <tr>
+            <td>Nama Siswa</td>
+            <td>:</td>
+            <td> <%= dataSiswa.name %></td>
+        </tr>
+        <tr>
+            <td>NISN</td>
+            <td>:</td>
+            <td> <%= dataSiswa.nisn %></td>
+        </tr>
+        <tr>
+            <td>Kelas</td>
+            <td>:</td>
+            <td> <%= dataSiswa.kelas.name %></td>
+        </tr>
+        <tr>
+            <td>Angkatan</td>
+            <td>:</td>
+            <td> <%= dataSiswa.angkatan.name %></td>
+        </tr>
+        <tr>
+            <td>Jurusan</td>
+            <td>:</td>
+            <td> <%= dataSiswa.jurusan.name %></td>
+        </tr>
+    </table>
+    <table border="1" cellspacing="" cellpadding="4" width="100%">
+        <tr>
+            <th>NO</th>
+            <th>NO. Bayar</th>
+            <th>PEMBAYARAN BULAN</th>
+            <th>JUMLAH</th>
+            <th>KETERANGAN</th>
+        </tr>
+        <tr>
+            <td align="center"><%= 1 %></td>
+            <td align=""><%= dataPembayaran.nobayar  %></td>
+            <td align=""><%= dataPembayaran.bulan %></td>
+            <td align="right">Rp. <%= dataPembayaran.jumlah %></td>
+            <td align="center"><%= dataPembayaran.ket %></td>
+        </tr>
+
+         <tr>
+        <td colspan="3" align="right">TOTAL</td>
+        <td align="right"><b>Rp. <%= dataPembayaran.jumlah %></b></td>
+        <td></td>
+        </tr>
+        
+    </table>
+
+    <table width="100%">
+        <tr>
+            <td></td>
+            <td>
+                <br>
+                <p>Adiwerna <%= new Date().toISOString().slice(0, 10)%></p></br>
+                Operator,
+                <br/><br/><br/>
+                <p>---------------------------------</p>
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
+
+
+<?php
+}
+else{
+    header('location: login.php');
+}
+?>
