@@ -62,7 +62,7 @@ const addSiswa = async(req,res)=>{
             const bulan = bulanIndo[`${jatuhTempo.getMonth()}`] + " " + jatuhTempo.getFullYear();
 
             const pembayaran = new Pembayaran({
-                nisn:nisn,
+                siswa:isSucces,
                 jatuhtempo:jatuhTempo.toISOString().slice(0, 10),
                 bulan:bulan,
                 jumlah:dataAngkatan.biaya,
@@ -72,7 +72,7 @@ const addSiswa = async(req,res)=>{
             });
             await pembayaran.save()
         }
-        const isSuccesPembayaran = await Pembayaran.find({nisn:nisn})
+        const isSuccesPembayaran = await Pembayaran.find({siswa:isSucces});
         if(isSuccesPembayaran !== null){
             console.log('add siswa success')
             res.status(201).redirect('/siswa');

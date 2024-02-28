@@ -27,6 +27,9 @@ import prosesTransaksi from "./handler/pembayaran/prosesTransaksi.js";
 import cetakSlipTransaksi from "./handler/pembayaran/cetakSlipTransaksi.js";
 import cetakSemuaTransaksi from "./handler/pembayaran/cetakSemuaTransaksi.js";
 
+// laporan
+import cetakLaporan from "./handler/laporan/cetakLaporan.js";
+
 const routers = (app)=>{
 
 // data angkatan
@@ -90,6 +93,12 @@ const routers = (app)=>{
 
     // cetak semua transaksi
     app.get('/cetaksemuatransaksi',wrapAsync(cetakSemuaTransaksi));
+
+
+// data laporan
+    // cetak laporan
+    app.post('/cetaklaporan',wrapAsync(cetakLaporan));
+
 
 }
 

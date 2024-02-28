@@ -40,11 +40,11 @@
                         <td><%= pembayaran.ket %></td>
                         <td>
                             <% if(pembayaran.nobayar==''){%>
-                                <a class="btn btn-primary btn-sm" href="/prosestransaksi?nisn=<%= pembayaran.nisn %>&id=<%= pembayaran._id %>">Bayar</a>
+                                <a class="btn btn-primary btn-sm" href="/prosestransaksi?nisn=<%= dataSiswa.nisn %>&id=<%= pembayaran._id %>">Bayar</a>
                             <% } else{
                             %>
-                                <a class='btn btn-danger btn-sm mr-1' href='/prosestransaksi?nisn=<%= pembayaran.nisn %>&id=<%= pembayaran._id %>'>Batal</a>
-                                <a class='btn btn-success btn-sm' href='/cetaksliptransaksi?nisn=<%= pembayaran.nisn %>&id=<%= pembayaran._id %>' target='_blank'>Cetak</a>
+                                <a class='btn btn-danger btn-sm mr-1' href='/prosestransaksi?nisn=<%= dataSiswa.nisn %>&id=<%= pembayaran._id %>'>Batal</a>
+                                <a class='btn btn-success btn-sm' href='/cetaksliptransaksi?nisn=<%= dataSiswa.nisn %>&id=<%= pembayaran._id %>' target='_blank'>Cetak</a>
                             <% } %>
                                 
                         </td>

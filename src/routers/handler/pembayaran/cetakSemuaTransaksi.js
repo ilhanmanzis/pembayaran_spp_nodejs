@@ -10,7 +10,7 @@ const cetakSemuaTransaksi = async(req,res)=>{
         res.status(404).render('error/404');
     }
 
-    const dataPembayaran = await Pembayaran.find({nisn:nisn, ket:'LUNAS'});
+    const dataPembayaran = await Pembayaran.find({siswa:dataSiswa._id, ket:'LUNAS'});
     if(dataPembayaran.length == 0){
         res.status(404).render('error/404');
     }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Pembayaran</title>
+    <style>
+        body{
+            font-family: arial;
+        }
+        
+        table{
+                border-collapse:collapse;
+            }
+    </style>
+</head>
+<body onload="window.print();">
+
+    <h3>SMK NEGERI 1 ADIWERNA<b><br>LAPORAN PEMBAYARAN</b></h3>
+    <br/>
+    <hr/>
+    TANGGAL <%= awal %> SAMPAI <%= akhir %>
+    <br/>
+    <br>
+
+
+    <table border="1" cellspacing="" cellpadding="4" width="100%">
+        <tr>
+            <th>NO</th>
+            <th>NISN</th>
+            <th>NAMA SISWA</th>
+            <th>KELAS</th>
+            <th>NO. Bayar</th>
+            <th>PEMBAYARAN BULAN</th>
+            <th>JUMLAH</th>
+            <th>KETERANGAN</th>
+        </tr>
+        <% let i = 1;
+        let total = 0;
+        for(let laporans of laporan){
+        %>
+        <tr>
+            <td align="center"><%= i++ %></td>
+            <td align="center"><%= laporans.siswa.nisn %></td>
+            <td align="center"><%= laporans.siswa.name %></td>
+            <td align="center"><%= laporans.siswa.kelas.name %></td>
+            <td align=""><%= laporans.nobayar %></td>
+            <td align=""><%= laporans.bulan %></td>
+            <td align="right"><%= laporans.jumlah %></td>
+            <td align="center"><%= laporans.ket %></td>
+        </tr>
+        <% total += laporans.jumlah 
+        }
+        %>
+         <tr>
+        <td colspan="6" align="right">TOTAL</td>
+        <td align="right"><b><%= total %></b></td>
+        <td></td>
+        </tr>
+        
+    </table>
+
+    <table width="100%">
+        <tr>
+            <td></td>
+            <td>
+                <br>
+                <p>Adiwerna <%= new Date().toISOString().slice(0,10) %></p></br>
+                Operator,
+                <br/><br/><br/>
+                <p>---------------------------------</p>
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+
+</body>
+</html>

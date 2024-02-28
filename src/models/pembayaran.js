@@ -2,9 +2,9 @@ import mongoose, { mongo } from "mongoose";
 import { Schema } from "mongoose";
 
 const pembayaranSchema = new Schema({
-    nisn:{
-        type:Number,
-        required:true
+    siswa:{
+        type: Schema.Types.ObjectId,
+        ref: 'Siswa'
     },
     jatuhtempo:{
         type: String,

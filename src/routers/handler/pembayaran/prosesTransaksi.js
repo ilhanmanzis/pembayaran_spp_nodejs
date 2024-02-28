@@ -6,7 +6,7 @@ const prosesTransaksi = async(req,res)=>{
     const {nisn,id}=req.query;
 
     // validasi data pembayaran
-    const dataPembayaran = await Pembayaran.findById(id);
+    const dataPembayaran = await Pembayaran.findById(id).populate('siswa');
     if(dataPembayaran===null){
         res.status(404).render('error/404');
     }
@@ -17,7 +17,7 @@ const prosesTransaksi = async(req,res)=>{
     const noBayar = Math.floor(Math.random() * 900000000)+100000000;
     if(dataPembayaran.nobayar===''){    
         const bayar = {
-            nisn:nisn,
+            siswa:dataPembayaran.siswa,
             jatuhtempo:dataPembayaran.jatuhtempo,
             bulan:dataPembayaran.bulan,
             jumlah:dataPembayaran.jumlah,
@@ -28,7 +28,7 @@ const prosesTransaksi = async(req,res)=>{
         const databayar = await Pembayaran.findByIdAndUpdate(id,bayar);
         const isSucces = await Pembayaran.find({nobayar:noBayar});
         if(isSucces !==null){
-            res.status(200).redirect(`/pembayaran?nisn=${nisn}`)
+            res.status(200).redirect(`/pembayaran?nisn=${dataPembayaran.siswa.nisn}`)
         }else{
             console.error(databayar);
             res.status(500).render('error/500')
@@ -37,7 +37,7 @@ const prosesTransaksi = async(req,res)=>{
     // proses batal
     else{
         const batalBayar = {
-            nisn:nisn,
+            siswa:dataPembayaran.siswa,
             jatuhtempo:dataPembayaran.jatuhtempo,
             bulan:dataPembayaran.bulan,
             jumlah:dataPembayaran.jumlah,
@@ -48,9 +48,8 @@ const prosesTransaksi = async(req,res)=>{
         const dataBatal = await Pembayaran.findByIdAndUpdate(id,batalBayar);
         const isSuccesBatal = await Pembayaran.findOne({nobayar:noBayar});
         if(isSuccesBatal === null|| isSuccesBatal === undefined){
-            res.status(200).redirect(`/pembayaran?nisn=${nisn}`)
+            res.status(200).redirect(`/pembayaran?nisn=${dataPembayaran.siswa.nisn}`)
         }else{
-            console.error(dataBatal);
             res.status(500).render('error/500')
         }
     }

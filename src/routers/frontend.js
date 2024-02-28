@@ -5,8 +5,18 @@ import Siswa from "../models/siswa.js";
 import Pembayaran from "../models/pembayaran.js";
 
 const routers = (app)=>{
-    app.get('/',(req,res)=>{
-        res.render('index');
+    app.get('/',async(req,res)=>{
+        const dataTransaksi = await Pembayaran.find({ 
+            nobayar:{
+            $ne:''
+            }
+        });
+        let totalUang = 0;
+        let totalTransaksi = dataTransaksi.length;
+        for(let transaksi of dataTransaksi){
+            totalUang += transaksi.jumlah;
+        }
+        res.render('index', {totalTransaksi, totalUang});
     });
 
     // data angkatan
@@ -69,8 +79,17 @@ const routers = (app)=>{
     app.get('/pembayaran',async(req,res)=>{
         const {nisn}= req.query;
         const dataSiswa = await Siswa.findOne({nisn:nisn}).populate('angkatan').populate('jurusan').populate('kelas');
-        const dataPembayaran = await Pembayaran.find({nisn:nisn});
-        res.render('pembayaran/pembayaran',{dataPembayaran,dataSiswa, nisn})
+        if(dataSiswa !==null){
+            const dataPembayaran = await Pembayaran.find({
+                siswa:dataSiswa._id
+            });
+            res.render('pembayaran/pembayaran',{dataPembayaran,dataSiswa, nisn})
+        }else{
+            const dataPembayaran = await Pembayaran.find({});
+            res.render('pembayaran/pembayaran',{dataPembayaran,dataSiswa, nisn})
+        }
+        
+        
     })
 
     // laporan
