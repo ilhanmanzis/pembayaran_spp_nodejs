@@ -1,4 +1,6 @@
-import  express  from "express";
+import express  from "express";
+import session from "express-session";
+import auth from "./src/session/session.js";
 import mongoose from "mongoose";
 import methodOverride from "method-override";
 import routersBackend from "./src/routers/backend.js";
@@ -23,12 +25,20 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
+app.use(session({
+    secret: 'pembayaranspp',
+    resave: false,
+    saveUninitialized: false
+}));
+
 
 export default function wrapAsync(fn){
     return function(req,res,next){
         fn(req,res,next).catch(err=> next(err.message))
     }
 }
+
+
 
 // router express 
     // frontend
@@ -39,9 +49,14 @@ export default function wrapAsync(fn){
 
 
 
-app.use((req,res)=>{
+app.get('/404',auth,(req,res)=>{
+    const dataUsername = req.session.username;
     res.status(404).render('error/404');
 });
+
+app.use((req,res)=>{
+    res.status(404).render('error/notfound')
+})
 
 
 app.use((err,req,res,next)=>{

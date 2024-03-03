@@ -18,7 +18,7 @@ const updateSiswa = async(req,res)=>{
         jurusanSiswa==='' ||
         kelasSiswa==='' ||
         alamatSiswa===''){
-            res.status(404).render('error/404');
+            res.status(404).redirect('/404')
     }
 
 

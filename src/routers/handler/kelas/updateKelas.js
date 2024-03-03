@@ -14,7 +14,7 @@ const updateKelas = async(req,res)=>{
     const dataKelas = await Kelas.findOne({name:nameKelas});
     if(dataKelas !== null ){
         console.log(dataKelas)
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404')
     }else{
         await Kelas.findByIdAndUpdate(id, {
             name:nameKelas

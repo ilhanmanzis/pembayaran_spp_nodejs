@@ -6,7 +6,7 @@ const deleteSiswa = async(req,res)=>{
     // validasi data siswa
     const dataSiswa = await Siswa.findById(id);
     if(dataSiswa === null || dataSiswa === undefined){
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404')
     }
 
     // menghapus data siswa

@@ -14,7 +14,7 @@ const addKelas = async(req,res)=>{
     // validasi nama kelas apakah ada atau tidak
     const dataKelas = await Kelas.findOne({name:nameKelas});
     if(dataKelas !== null){
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404')
     }else{
         // menambah data kelas
         const kelas = new Kelas({

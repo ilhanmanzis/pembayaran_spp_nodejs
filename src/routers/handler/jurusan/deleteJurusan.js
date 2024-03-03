@@ -6,7 +6,7 @@ const deleteJurusan = async(req,res)=>{
     // validasi data jurusan
     const dataJurusan = await Jurusan.findById(id);
     if(dataJurusan===null||dataJurusan===undefined){
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404')
     }
 
     await Jurusan.findByIdAndDelete(id);

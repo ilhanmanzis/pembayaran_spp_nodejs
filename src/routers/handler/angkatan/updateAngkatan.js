@@ -25,11 +25,7 @@ const updateAngkatan = async(req,res)=>{
     // validasi nama angkatan sudah ada atau belum
     const dataAngkatan = await Angkatan.findOne({name:nameAngkatan});
     if(dataAngkatan!==null){
-        res.status(400)
-        // .json({
-        //     status:'fail',
-        //     message:`Gagal menambahkan data angkatan, data angkatan ${name} sudah ada`})
-        .render('error/404')
+        res.status(400).redirect('/404')
     }else{
         await Angkatan.findByIdAndUpdate(id, {
             name:nameAngkatan,

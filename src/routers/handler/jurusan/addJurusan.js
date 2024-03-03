@@ -3,16 +3,15 @@ import Jurusan from "../../../models/jurusan.js";
 const addJurusan = async(req,res)=>{
     const {name} = req.body;
     const nameJurusan = name.toUpperCase();
-    console.log(nameJurusan)
     // validasi nama jurusan
     if(nameJurusan === ''||nameJurusan===undefined){
-        res.status(400).render('error/404');
+        res.status(400).redirect('/404')
     }
 
     // validasi nama jurusan apakah ada atau tidak
     const dataJurusan = await Jurusan.findOne({name:nameJurusan});
     if(dataJurusan!==null){
-        res.status(400).render('error/404');
+        res.status(400).redirect('/404')
     }else{
         const jurusan = new Jurusan({
             name:nameJurusan

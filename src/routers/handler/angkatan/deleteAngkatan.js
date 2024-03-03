@@ -4,7 +4,7 @@ const deleteAngkatan = async(req,res)=>{
     const {id} = req.params;
     const dataAngkatan = await Angkatan.findById(id);
     if(dataAngkatan===null){
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404')
     };
 
     await Angkatan.findByIdAndDelete(id);

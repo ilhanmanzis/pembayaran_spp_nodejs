@@ -7,7 +7,7 @@ const deleteKelas = async(req,res)=>{
     
     // validasi data kelas
     if(dataKelas === null || dataKelas === undefined){
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404')
     }
 
     // menghapus data kelas

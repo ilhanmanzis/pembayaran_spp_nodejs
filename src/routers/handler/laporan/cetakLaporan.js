@@ -4,7 +4,7 @@ const cetakLaporan = async(req,res)=>{
     const {awal, akhir} = req.body;
 
     if(awal===''||akhir===''){
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404')
     };
 
     const laporan = await Pembayaran.find({

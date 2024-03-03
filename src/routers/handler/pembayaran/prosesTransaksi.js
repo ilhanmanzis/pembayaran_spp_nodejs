@@ -8,7 +8,7 @@ const prosesTransaksi = async(req,res)=>{
     // validasi data pembayaran
     const dataPembayaran = await Pembayaran.findById(id).populate('siswa');
     if(dataPembayaran===null){
-        res.status(404).render('error/404');
+        res.status(404).redirect('/404');
     }
     
     // proses bayar
