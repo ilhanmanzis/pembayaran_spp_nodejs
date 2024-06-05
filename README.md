@@ -22,5 +22,5 @@ untuk menjalankan gunakan perintah
 1. prodction
    ## npm start
 
-3. developmen
+2. development
    ##npm run dev
