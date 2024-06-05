@@ -5,13 +5,15 @@ import mongoose from "mongoose";
 import methodOverride from "method-override";
 import routersBackend from "./src/routers/backend.js";
 import routersFrontend from "./src/routers/frontend.js";
-import ErrorHandler from "./src/routers/handler/error/ErrorHandler.js"
-const port = 8080;
+import ErrorHandler from "./src/routers/handler/error/ErrorHandler.js";
+import dotenv from "dotenv";
+dotenv.config();
+const port = process.env.PORT || 8000;
 const app = express();
 
 
 // connect database
-mongoose.connect('mongodb://127.0.0.1:27017/latihan').then((result)=>{
+mongoose.connect(`${process.env.DB_DIALECT}://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`).then((result)=>{
     console.log('connected database');
 }).catch((err)=>{
     console.log(err);
@@ -51,7 +53,7 @@ export default function wrapAsync(fn){
 
 app.get('/404',auth,(req,res)=>{
     const dataUsername = req.session.username;
-    res.status(404).render('error/404');
+    res.status(404).render('error/404',{dataUsername});
 });
 
 app.use((req,res)=>{

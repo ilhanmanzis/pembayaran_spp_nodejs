@@ -119,7 +119,7 @@ const routers = (app)=>{
     app.post('/register', sessionYes, wrapAsync(register));
 
 // login
-    app.post('/login', sessionYes, wrapAsync(login));
+    // app.post('/login', sessionYes, wrapAsync(login));
 
 // logout
     app.get('/logout', auth, wrapAsync(logout));

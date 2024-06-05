@@ -13,7 +13,7 @@ const register = async(req,res)=>{
         username:username
     });
 
-    if(dataUsername!==null){
+    if(dataUsername){
         res.status(404).render('error/404');
     }
 
@@ -21,7 +21,7 @@ const register = async(req,res)=>{
     const dataEmail = await Admin.findOne({
         email:email
     });
-    if(dataEmail!==null){
+    if(dataEmail){
         res.status(404).redirect('/404');
     }
 
