@@ -19,5 +19,8 @@ sebelum menggunakan jalankan perintah berikut
 ## npm install
 
 untuk menjalankan gunakan perintah
+1. prodction
+   ## npm start
 
-## npm start
+3. developmen
+   ##npm run dev
