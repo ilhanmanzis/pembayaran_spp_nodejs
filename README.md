@@ -1,5 +1,6 @@
 Hallo teman teman, ini adalah project lathan saya belajar express js dan node js. project yang dibuat adalah website pembayaran spp.
 untuk framework dan library yang digunakan:
+- java script es6
 - express js
 - ejs
 - bcrypt
