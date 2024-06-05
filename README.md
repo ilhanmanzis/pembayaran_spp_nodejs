@@ -23,6 +23,6 @@ untuk menjalankan gunakan perintah
    - ## npm start
 
 2. development
-   - ##npm run dev
+   - ## npm run dev
 
 
