@@ -20,9 +20,9 @@ sebelum menggunakan jalankan perintah berikut
 
 untuk menjalankan gunakan perintah
 1. prodction
-   ## npm start
+   - ## npm start
 
 2. development
-##npm run dev
+   - ##npm run dev
 
 
