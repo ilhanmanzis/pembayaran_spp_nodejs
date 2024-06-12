@@ -16,16 +16,13 @@ sebelum menggunakan jalankan perintah berikut
 - copy file ".env.example" menjadi ".env"
 - isi semua yang ada di dalam file .env
 - kemudian ketikan perintah berikut
-  ## npm install
+  ```
+  npm install
 
 untuk menjalankan gunakan perintah
 1. prodction
    ```
    npm start
-  
-
-3. development
+2. development
    ```
    npm run dev
-
-
