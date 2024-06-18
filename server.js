@@ -44,9 +44,9 @@ export default function wrapAsync(fn){
 
 // router express 
     // frontend
-        routersFrontend(app);
+        app.use(routersFrontend);
     // backend
-        routersBackend(app);
+        app.use(routersBackend)
 
 
 
