@@ -1,3 +1,4 @@
+import express from "express";
 import Angkatan from "../models/angkatan.js";
 import Jurusan from "../models/jurusan.js";
 import Kelas from "../models/kelas.js";
@@ -9,8 +10,10 @@ import auth from "../session/session.js";
 import sessionYes from "../session/sessionYes.js";
 import bcrypt from "bcryptjs";
 
-const routers = (app)=>{
-    app.get('/', auth, async(req,res)=>{
+const router = express.Router();
+
+
+    router.get('/', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const dataTransaksi = await Pembayaran.find({ 
             nobayar:{
@@ -26,12 +29,12 @@ const routers = (app)=>{
     });
 
     // data angkatan
-    app.get('/angkatan', auth, async(req,res)=>{
+    router.get('/angkatan', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const angkatan = await Angkatan.find();
         res.render('angkatan/angkatan', {angkatan, dataUsername});
     });
-    app.get('/editdataangkatan/:id', auth, async(req,res)=>{
+    router.get('/editdataangkatan/:id', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const {id} = req.params;
         const angkatan = await Angkatan.findById(id);
@@ -39,12 +42,12 @@ const routers = (app)=>{
     });
 
     // data jurusan
-    app.get('/jurusan', auth, async(req,res)=>{
+    router.get('/jurusan', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const jurusan = await Jurusan.find();
         res.render('jurusan/jurusan', {jurusan, dataUsername});
     });
-    app.get('/editdatajurusan/:id', auth, async(req,res)=>{
+    router.get('/editdatajurusan/:id', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const {id} = req.params;
         const jurusan = await Jurusan.findById(id);
@@ -52,12 +55,12 @@ const routers = (app)=>{
     });
 
     // data kelas
-    app.get('/kelas', auth, async(req,res)=>{
+    router.get('/kelas', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const kelass = await Kelas.find();
         res.render('kelas/kelas', {kelass, dataUsername});
     });
-    app.get('/editdatakelas/:id', auth, async(req,res)=>{
+    router.get('/editdatakelas/:id', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const {id} = req.params;
         const kelas = await Kelas.findById(id);
@@ -65,14 +68,14 @@ const routers = (app)=>{
     });
     
     // lihat data siswa
-    app.get('/datasiswa', auth, async(req,res)=>{
+    router.get('/datasiswa', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const siswas = await Siswa.find().populate('angkatan').populate('jurusan').populate('kelas');
         res.render('siswa/datasiswa', {siswas, dataUsername});
     });
 
     // data siswa
-    app.get('/siswa', auth, async(req,res)=>{
+    router.get('/siswa', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const siswas = await Siswa.find().populate('angkatan').populate('jurusan').populate('kelas');
         const kelass = await Kelas.find();
@@ -80,7 +83,7 @@ const routers = (app)=>{
         const angkatans = await Angkatan.find();
         res.render('siswa/siswa', {siswas, kelass, jurusans, angkatans, dataUsername});
     });
-    app.get('/editdatasiswa/:id', auth, async(req,res)=>{
+    router.get('/editdatasiswa/:id', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const {id} = req.params;
         const siswa = await Siswa.findById(id).populate('angkatan').populate('jurusan').populate('kelas');
@@ -91,7 +94,7 @@ const routers = (app)=>{
     });
 
     // transaksi spp
-    app.get('/pembayaran', auth, async(req,res)=>{
+    router.get('/pembayaran', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const {nisn}= req.query;
         const dataSiswa = await Siswa.findOne({nisn:nisn}).populate('angkatan').populate('jurusan').populate('kelas');
@@ -109,7 +112,7 @@ const routers = (app)=>{
     })
 
     // laporan
-    app.get('/laporan', auth, async(req,res)=>{
+    router.get('/laporan', auth, async(req,res)=>{
         const dataUsername = req.session.username;
         res.render('laporan/laporan',{dataUsername})
     });
@@ -117,17 +120,17 @@ const routers = (app)=>{
 
 // login
 
-    app.get('/login', sessionYes, async(req,res)=>{
+    router.get('/login', sessionYes, async(req,res)=>{
         res.render('admin/login')
     });
 
 // register
-    app.get('/register', sessionYes, async(req,res)=>{
+    router.get('/register', sessionYes, async(req,res)=>{
         res.render('admin/register')
     })
 
 // profile admin
-    app.get('/profile', auth, async(req,res)=>{
+    router.get('/profile', auth, async(req,res)=>{
         const dataUsername = req.session.username
         const dataAdmin = await Admin.findOne({
             username: dataUsername
@@ -137,7 +140,7 @@ const routers = (app)=>{
     });
 
 // update password admin
-    app.get('/updatepassword',auth, async(req,res)=>{
+    router.get('/updatepassword',auth, async(req,res)=>{
         const dataUsername = req.session.username;
         const dataAdmin = await Admin.findOne({
             username: dataUsername
@@ -145,6 +148,5 @@ const routers = (app)=>{
         res.render('admin/updatePassword', {dataAdmin, dataUsername});
     })
 
-};
 
-export default routers;
+export default router;
